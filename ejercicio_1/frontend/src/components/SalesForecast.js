@@ -8,9 +8,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box"
+import {LineChart} from "./graphics"
 
 export const SalesForecast = () => {
   const [method, setMethod] = useState("");
+
+  const scores = [3, 3, 4, 50, 2, 1, 90, 20, 4, 90]
+  const labels = ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10"]
 
   const handleChangeMethod = (event) => {
     setMethod(event.target.value);
@@ -25,7 +29,12 @@ export const SalesForecast = () => {
         EditarVariables={false}
       />
       <ChartContainer>
-        <Tittle>Espacio reservado para el gráfico</Tittle>
+        <Tittle>Grafico de pronostico de ventas</Tittle>
+        <Container>
+          <LineChart 
+            scores={scores} 
+            labels={labels}/>
+        </Container>
       </ChartContainer>
       <DataContainer>
         <TextLabel>Método a utilizar:</TextLabel>
@@ -78,6 +87,7 @@ const ChartContainer = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
+  flex-direction: column;
 `;
 
 const Tittle = styled.div`
@@ -105,4 +115,8 @@ const TextLabel = styled.div`
   font-family: monospace;
   text-align: center;
   font-weight: 900;
+`;
+
+const Container = styled.div`
+  width: 750px
 `;
