@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Navbar } from "./Navbar";
+import {LineChart} from "./graphics"
 
 //importaciones de Material UI
 import Paper from "@mui/material/Paper";
@@ -38,6 +39,9 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
 ];
+
+const scores = [3, 3, 4, 50, 2, 1, 90, 20, 4, 90]
+const labels = ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10"]
 
 function createData(No, Periódicos_comprados, Demanda, Ganancia_Perdida) {
   const Fecha = Demanda / Ganancia_Perdida;
@@ -84,7 +88,12 @@ export const HistoryPage = () => {
         EditarVariables={false}
       />
       <ChartContainer>
-        <Tittle>Espacio reservado para el gráfico</Tittle>
+      <Tittle>Grafico de historial de ventas</Tittle>
+        <Container>
+          <LineChart 
+            scores={scores} 
+            labels={labels}/>
+        </Container>
       </ChartContainer>
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 400 }}>
@@ -166,6 +175,8 @@ const ChartContainer = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
+  flex-direction: column;
+  margin-bottom:20px;
 `;
 
 const Tittle = styled.div`
@@ -176,5 +187,9 @@ const Tittle = styled.div`
   text-align: center;
   font-weight: bold;
   width: 100%;
-  margin-top: 40px;
+  margin-top: 10px;
+`;
+
+const Container = styled.div`
+  width: 750px
 `;
