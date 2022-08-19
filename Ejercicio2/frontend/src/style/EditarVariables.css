@@ -1,0 +1,55 @@
+.formulario_edit {
+    font-family: monospace, sans-serif;
+}
+
+.contendor_Fiel_button {
+   /*  background: palevioletred; */
+    width: 140px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.contenedor_Field_edit {
+    /* background: yellowgreen; */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 1px;
+    flex-wrap: wrap;
+
+}
+
+.formulario_edit input,
+.formulario_edit textarea {
+    width: 80px;
+    height: 10px;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    font-size: 14px;
+    padding: 10px;
+    /* margin-bottom: 5px; */
+    color: #1f1f1f;
+}
+
+.formulario_edit input:focus {
+    outline: none;
+    border: 2px solid #0085FF;
+}
+
+.contenedor_mensaje_error .error_edit {
+    /* background: #02a802; */
+    color: #e92b2d;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px;
+    justify-content: right;
+}
+
+.formulario_edit .exito_edit {
+	text-align: center;
+	font-size: 14px;
+	color: #02a802;
+}
