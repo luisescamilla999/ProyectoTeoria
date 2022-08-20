@@ -14,7 +14,7 @@ import img10 from "../img/10.png";
 import img11 from "../img/11.png";
 
 const Imagen = () => {
-    /* const galeria = [
+     const galeria = [
         { "imagen": "../img/1.png"},
         { "imagen": "img2"},
         { "imagen": "../img/3.png"},
@@ -26,24 +26,24 @@ const Imagen = () => {
         { "imagen": "../img/9.png"},
         { "imagen": "../img/10.png"},
         { "imagen": "../img/11.png"},
-      ] */
+      ]
 
-      /* const galeria2 = [
+      const galeria2 = [
         img1,
         img2,
-      ] */
-      /* console.log(galeria);
+      ]
+      console.log(galeria);
       console.log(galeria[0]);
       console.log(galeria[1].imagen);
 
       const idImagen = "2";
-      console.log(`img${idImagen}`); */
+      console.log(`img${idImagen}`);
 
 
   return (
     <>
         <div>
-            {/* <Img src={`img${idImagen}`}/> */}
+            <Img src={`img${idImagen}`}/>
             <Img src={img1}/>
             <Img src={img2}/>
             <Img src={img3}/>

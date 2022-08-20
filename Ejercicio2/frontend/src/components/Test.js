@@ -4,7 +4,7 @@ import Imagen from "./Imagen";
 export default function test() {
   return (
     <>
-      <Imagen />
+      <Imagen id = 1/>
     </>
   );
 }
