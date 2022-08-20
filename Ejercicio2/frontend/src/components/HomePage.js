@@ -60,11 +60,11 @@ export default function HomePage() {
   let cantExistenteSuper = cantitadCombustibleSuper;
   //===================================================================
   // variables de salida
-  const [varSalidaTETC, setVarSalidaTETC] = useState(0);
-  const [varSalidaCGG, setVarSalidaCGG] = useState(0);
-  const [varSalidaPCD, setVarSalidaPCD] = useState(0);
-  const [varSalidaCPG, setVarSalidaCPG] = useState(0);
-  const [varSalidaCAA, setVarSalidaCAA] = useState(0); //CAA cantidad de autos atendidos
+  let [varSalidaTETC, setVarSalidaTETC] = useState(0);
+  let [varSalidaCGG, setVarSalidaCGG] = useState(0);
+  let [varSalidaPCD, setVarSalidaPCD] = useState(0);
+  let [varSalidaCPG, setVarSalidaCPG] = useState(0);
+  let [varSalidaCAA, setVarSalidaCAA] = useState(0); //CAA cantidad de autos atendidos
 
 
   //===================================================================
@@ -195,68 +195,102 @@ export default function HomePage() {
     console.log(varSalidaTETC);
   };
 
+  let time = 100
+  let cont = 0
+  let salidaCGG = 0
+  let salidaPCD = 0
+  let salidaCAA = 0
+  let auxCompraRegular = 0;
+  let auxCompraDiesel = 0;
+  let auxCompraSuper = 0;
+  let costos=0
+
   const iniciarEjecucion = () => {
     //let sumatoriaVelocidaLlenado = 0;
-    let auxCompraRegular = 0;
-    let auxCompraDiesel = 0;
-    let auxCompraSuper = 0;
-    let costos =
+    console.log(setCantidadFuelVehiculoSuper+" "+precioCompraCombustibleSuper)
+    costos =
       cantitadCombustibleDiesel * precioCompraCombustibleDiesel +
       cantitadCombustibleRegular * precioCompraCombustibleRegular +
       setCantidadFuelVehiculoSuper * precioCompraCombustibleSuper;
+    definirColaAutos()
+    console.log('se ejecuta'+infoColaAutos.length)
+      let i =0
+    //infoColaAutos.forEach((auto) => 
+    for(i;i<infoColaAutos.length;i++){
+      setTimeout(()=> {
+      	console.log("entra vehiculo: "+cont)
+      },time)
 
-    infoColaAutos.forEach((auto) => {
-      // se calculan los valores para CGG y PDC
-      if (auto.tipoGasolina === "R") {
-        auxCompraRegular =
-          parseInt(auto.cantidadComprada) *
-          parseInt(precioVentaCombustibleRegular);
+      time+=(tiempoIntercambio*1000)+((infoColaAutos[i].cantidadComprada/cantidadLitrosSegundoEstacion)*1000)
 
-        if (cantExistenteRegular >= parseInt(auto.cantidadComprada)) {
-          //si se atiende el auto y la compra se suma como cantidad vendida
-          setVarSalidaCGG(varSalidaCGG + auxCompraRegular);
-          setVarSalidaCAA(varSalidaCAA + 1);
-          cantExistenteRegular -= parseInt(auto.cantidadComprada);
-        } else {
-          // no se atiende el auto y la compra se suma como
-          //perdida por no atender la demanda
-          setVarSalidaPCD(varSalidaPCD + auxCompraRegular);
+      setTimeout(()=> {
+        console.log("se ejecuta el time")
+        // se calculan los valores para CGG y PDC
+      	if (infoColaAutos[cont].tipoGasolina === "R") {
+          auxCompraRegular =
+            parseInt(infoColaAutos[cont].cantidadComprada) *
+            parseInt(precioVentaCombustibleRegular);
+  
+          if (cantExistenteRegular >= parseInt(infoColaAutos[cont].cantidadComprada)) {
+            //si se atiende el auto y la compra se suma como cantidad vendida
+            setVarSalidaCGG(salidaCGG + auxCompraRegular);
+            salidaCGG+=auxCompraRegular
+            setVarSalidaCAA(salidaCAA + 1); salidaCAA++;
+            cantExistenteRegular -= parseInt(infoColaAutos[cont].cantidadComprada);
+          } else {
+            // no se atiende el auto y la compra se suma como
+            //perdida por no atender la demanda
+            setVarSalidaPCD(salidaPCD + auxCompraRegular);
+            salidaPCD += auxCompraRegular
+          }
+        } else if (infoColaAutos[cont].tipoGasolina === "D") {
+          auxCompraDiesel =
+            parseInt(infoColaAutos[cont].cantidadComprada) *
+            parseInt(precioVentaCombustibleDiesel);
+  
+          if (cantExistenteDiesel >= parseInt(infoColaAutos[cont].cantidadComprada)) {
+            //si se atiende el auto y la compra se suma como cantidad vendida
+            setVarSalidaCGG(salidaCGG + auxCompraDiesel);
+            salidaCGG+=auxCompraDiesel
+            setVarSalidaCAA(salidaCAA + 1); salidaCAA++;
+            cantExistenteDiesel -= parseInt(infoColaAutos[cont].cantidadComprada);
+          } else {
+            // no se atiende el auto y la compra se suma como
+            //perdida por no atender la demanda
+            setVarSalidaPCD(salidaPCD + auxCompraDiesel);
+            salidaPCD += auxCompraDiesel
+          }
+        } else if (infoColaAutos[cont].tipoGasolina === "S") {
+          auxCompraSuper =
+            parseInt(infoColaAutos[cont].cantidadComprada) *
+            parseInt(precioVentaCombustibleRegular);
+  
+          if (cantExistenteSuper >= parseInt(infoColaAutos[cont].cantidadComprada)) {
+            //si se atiende el auto y la compra se suma como cantidad vendida
+            setVarSalidaCGG(salidaCGG + auxCompraSuper);
+            salidaCGG+=auxCompraSuper
+            setVarSalidaCAA(salidaCAA + 1); salidaCAA++;
+            cantExistenteSuper -= parseInt(infoColaAutos[cont].cantidadComprada);
+          } else {
+            // no se atiende el auto y la compra se suma como
+            //perdida por no atender la demanda
+            setVarSalidaPCD(salidaPCD + auxCompraSuper);
+            salidaPCD += auxCompraSuper
+          }
         }
-      } else if (auto.tipoGasolina === "D") {
-        auxCompraDiesel =
-          parseInt(auto.cantidadComprada) *
-          parseInt(precioVentaCombustibleDiesel);
+        console.log(salidaCGG + "  " + costos )
+  
+        setVarSalidaCPG(salidaCGG - costos);
 
-        if (cantExistenteDiesel >= parseInt(auto.cantidadComprada)) {
-          //si se atiende el auto y la compra se suma como cantidad vendida
-          setVarSalidaCGG(varSalidaCGG + auxCompraDiesel);
-          setVarSalidaCAA(varSalidaCAA + 1);
-          cantExistenteDiesel -= parseInt(auto.cantidadComprada);
-        } else {
-          // no se atiende el auto y la compra se suma como
-          //perdida por no atender la demanda
-          setVarSalidaPCD(varSalidaPCD + auxCompraDiesel);
-        }
-      } else if (auto.tipoGasolina === "S") {
-        auxCompraSuper =
-          parseInt(auto.cantidadComprada) *
-          parseInt(precioVentaCombustibleRegular);
+        //animacion de salida del vehiculo
+        console.log("sale el vehiculo "+cont)
 
-        if (cantExistenteSuper >= parseInt(auto.cantidadComprada)) {
-          //si se atiende el auto y la compra se suma como cantidad vendida
-          setVarSalidaCGG(varSalidaCGG + auxCompraSuper);
-          setVarSalidaCAA(varSalidaCAA + 1);
-          cantExistenteSuper -= parseInt(auto.cantidadComprada);
-        } else {
-          // no se atiende el auto y la compra se suma como
-          //perdida por no atender la demanda
-          setVarSalidaPCD(varSalidaPCD + auxCompraSuper);
-        }
-      }
-
-      setVarSalidaCPG(varSalidaCGG - costos);
-      // se calculan los valores de CPG
-    });
+        cont++
+        // se calculan los valores de CPG
+      },time)
+      time+=(tiempoIntercambio*1000)
+      
+    };
   };
 
   return (
@@ -397,6 +431,7 @@ export default function HomePage() {
                 Ver resultados de la funcion de crear cola autos
               </Button>
               <Button onClick={calcularTETC}>Ver calcular el TETC</Button>
+              <Button onClick={iniciarEjecucion}>ver ejecucion</Button>
             </div>
           </div>
         </ContenedorIzquierda>
