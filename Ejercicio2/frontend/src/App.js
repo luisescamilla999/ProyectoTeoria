@@ -1,12 +1,16 @@
 import HomePage from "./components/HomePage";
-import Test from "./components/Test";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserContextProvider } from "./context/UserContextProvider";
 
 function App() {
   return (
-    <>
-      <Test />
-      <HomePage />
-    </>
+    <UserContextProvider>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+        </Routes>
+      </Router>
+    </UserContextProvider>
   );
 }
 
